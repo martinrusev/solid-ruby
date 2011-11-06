@@ -1,16 +1,13 @@
-class Remote
-	class << self
-
-		def log(log)
-			request()
+module Ramon
+	class Remote
+		def self.log(log)
 		end
 
-		def exception(exception_hash)
+		def self.exception(exception_hash)
 		end
 
-		def request(url, data)
-		
+		def self.request(url, data)
+			puts "remote request"
 		end
-
 	end
 end

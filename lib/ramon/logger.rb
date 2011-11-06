@@ -1,11 +1,11 @@
 module Ramon
-	class AmonLog
-		class << self
-			def log(message, level)
-				log = {"message" => message, "level" => level}
-				log
-			end
-		end 
+	class Log
+		def self.log(message, level)
+			level ||= 'notset'
+			log = {"message" => message, "level" => level}
+			
+			log
+		end
 	end
 end
 
