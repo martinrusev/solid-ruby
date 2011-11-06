@@ -1,5 +1,10 @@
 require "ramon/version"
+require "ramon/logger"
+require "ramon/remote"
+require "ramon/exception_data"
 
 module Ramon
-  # Your code goes here...
+	def self.log
+		
+	end
 end
