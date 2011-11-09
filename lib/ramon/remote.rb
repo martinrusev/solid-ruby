@@ -1,13 +1,24 @@
+require 'net/http'
+require 'json'
+require 'zlib'
+require "#{File.dirname(__FILE__)}/config"
+
 module Ramon
 	class Remote
-		def self.log(log)
-		end
+		def self.post(type, data)
 
-		def self.exception(exception_hash)
-		end
+			if type == 'log':
+				@url = '/api/log'
+			else
+				@url = '/api/exception'
+			end
+			puts data
 
-		def self.request(url, data)
-			puts "remote request"
+			req = Net::HTTP::Post.new(@url, initheader = {'Content-Type' =>'application/json'})
+			#req.body = Zlib::Deflate.deflate(data.to_json, Zlib::BEST_SPEED)
+			req.body = data.to_json
+			response = Net::HTTP.new(Config::host, Config::port).start {|http| http.request(req) }
+			puts "Response #{response.code} #{response.message}: #{response.body}"
 		end
-	end
-end
+	end # class end
+end # module end 

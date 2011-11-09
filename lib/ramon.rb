@@ -6,7 +6,8 @@ require "lib/ramon/exception_data"
 module Ramon
 	def self.log(message, level=nil)
 		log_hash = Log.log(message, level)
-		puts log_hash
+		Remote.post('log', log_hash)
 	end
+	log('boo me','info')
 end
 

@@ -20,7 +20,7 @@ module Ramon
 
 						@app_key = config['application_key'] unless config['application_key'].nil?
 						@port = config['web_app']['port'].to_i unless config['web_app']['port'].nil?
-						@host = config['web_app']['host'] unless config['web_app']['host'].nil?
+						@host = config['web_app']['host'].to_s unless config['web_app']['host'].nil?
 
 					  rescue Exception => e
 						raise ConfigurationException.new("Unable to load configuration file: #{config_file}")
