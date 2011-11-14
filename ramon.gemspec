@@ -1,15 +1,14 @@
 # -*- encoding: utf-8 -*-
-$:.push File.expand_path("../lib", __FILE__)
-require "ramon/version"
+require File.expand_path('../lib/ramon/version', __FILE__)
 
 Gem::Specification.new do |s|
   s.name        = "ramon"
   s.version     = Ramon::VERSION
   s.authors     = ["martinrusev"]
-  s.email       = ["martinrusev@zoho.com"]
+  s.email       = ["martin@amon.cx"]
   s.homepage    = "http://amon.cx"
   s.summary     = %q{Ruby binding for Amon}
-  s.description = %q{Amon client that provides logging and exception handling}
+  s.description = %q{Amon client for Ruby that provides logging and exception handling for web applications}
 
   s.rubyforge_project = "ramon"
 

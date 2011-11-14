@@ -1,14 +1,13 @@
 require 'digest/md5'
 
+module Ramon
 class ApplicationEnvironment
     def self.to_hash(framework)
       {
-          'host' => get_hostname,
-          'run_as_user' => get_username,
           'language' => 'ruby',
           'language_version' => language_version_string,
           'framework' => framework,
-          'libraries_loaded' => libraries_loaded
+          #'libraries_loaded' => libraries_loaded
       }
     end
 
@@ -36,4 +35,5 @@ class ApplicationEnvironment
       {}
     end
 
-end
+end # class end
+end # module end

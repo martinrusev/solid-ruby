@@ -5,7 +5,10 @@ end
 require_local "version"
 require_local "logger"
 require_local "remote"
-require_local "exception_data"
+require_local "catcher"
+require_local  "exception_data"
+require_local  "controller_exception_data"
+require_local  "enviroment_data"
 
 module Ramon
 	def self.log(message, level=nil)
