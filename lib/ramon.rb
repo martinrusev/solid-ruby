@@ -12,5 +12,9 @@ module Ramon
 		log_hash = Log.log(message, level)
 		Remote.post('log', log_hash)
 	end
+
+	def self.post(type, data)
+		Remote.post(type, data)
+	end
 end
 
