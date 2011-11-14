@@ -10,6 +10,8 @@ require_local  "exception_data"
 require_local  "controller_exception_data"
 require_local  "enviroment_data"
 
+require_local 'railtie' if defined?(Rails)
+
 module Ramon
 	def self.log(message, level=nil)
 		log_hash = Log.log(message, level)
