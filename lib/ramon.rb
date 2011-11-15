@@ -10,6 +10,7 @@ require_local  "exception_data"
 require_local  "controller_exception_data"
 require_local  "enviroment_data"
 
+require_local 'integration/rails' if defined?(Rails)
 require_local 'railtie' if defined?(Rails)
 
 module Ramon
