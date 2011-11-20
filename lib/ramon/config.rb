@@ -6,7 +6,7 @@ class ConfigurationException < StandardError; end
 	
 	class << self
 		DEFAULTS = {
-			:host => 'http://127.0.0.1',
+			:host => '127.0.0.1',
 			:port => 2464
 		}
 
