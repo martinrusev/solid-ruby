@@ -7,7 +7,7 @@ module Ramon
 class Remote
 	def self.post(type, data)
 
-		if type == 'log':
+		if type == 'log'
 			@url = '/api/log'
 		else
 			@url = '/api/exception'
