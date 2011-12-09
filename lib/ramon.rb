@@ -3,7 +3,7 @@ def require_local(file)
 end
 
 require_local "version"
-require_local "logger"
+require_local "log_factory"
 require_local "remote"
 require_local "catcher"
 require_local  "exception_data"
@@ -14,6 +14,7 @@ require_local 'integration/rails' if defined?(Rails)
 require_local 'railtie' if defined?(Rails)
 
 module Ramon
+
 	def self.log(message, level=nil)
 		log_hash = Log.log(message, level)
 		Remote.post('log', log_hash)
@@ -22,5 +23,6 @@ module Ramon
 	def self.post(type, data)
 		Remote.post(type, data)
 	end
+
 end
 

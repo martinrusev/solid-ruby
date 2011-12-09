@@ -30,6 +30,10 @@ class ConfigurationException < StandardError; end
 			end
 		end
 
+		def application_root
+			(defined?(Rails) && Rails.respond_to?(:root)) ? Rails.root : Dir.pwd
+		end
+
 		def port
 			@port ||= DEFAULTS[:port]
 		end

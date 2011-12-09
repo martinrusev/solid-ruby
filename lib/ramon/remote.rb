@@ -13,11 +13,23 @@ class Remote
 			@url = '/api/exception'
 		end
 
-		req = Net::HTTP::Post.new(@url, initheader = {'Content-Type' =>'application/json'})
-		#req.body = Zlib::Deflate.deflate(data.to_json, Zlib::BEST_SPEED)
-		req.body = data.to_json
-		response = Net::HTTP.new(Config::host, Config::port).start {|http| http.request(req) }
-		#puts "Response #{response.code} #{response.message}: #{response.body}"
+		request = Net::HTTP::Post.new(@url, initheader = {'Content-Type' =>'application/json'})
+		request.body = data.to_json
+
+		begin
+		  response = Net::HTTP.new(Config::host, Config::port).start {|http| http.request(request) }
+          case response
+            when Net::HTTPSuccess
+              LogFactory.log.info( "#{@url} - #{response.message}")
+              return response
+            else
+              LogFactory.log.error("#{@url} - #{response.code} - #{response.message}")
+          end
+        rescue Exception => e
+          LogFactory.log.error(e)
+        end
+
 	end
 end # class end
 end # module end 
+
