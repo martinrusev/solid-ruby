@@ -9,10 +9,12 @@ class Catcher
 	  
 	  def handle_with_rack(exception, environment, request) 
 		  data = RackExceptionData.new(exception, environment, request)
+		  Ramon.post('exception', data)
 	  end
 
 	  def handle(exception, name=nil)
 		  data = ExceptionData.new(exception, name)
+		  Ramon.post('exception', data)
 	  end
 
 	end

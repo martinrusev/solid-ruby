@@ -15,8 +15,8 @@ require_local 'railtie' if defined?(Rails)
 
 module Ramon
 
-	def self.log(message, level=nil)
-		log_hash = Log.log(message, level)
+	def self.log(message, tags=nil)
+		log_hash = Log.log(message, tags)
 		Remote.post('log', log_hash)
 	end
 

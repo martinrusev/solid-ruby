@@ -4,9 +4,9 @@ require 'date'
 module Ramon
 class Log
 	
-	def self.log(message, level=nil)
-		level ||= 'notset'
-		log = {"message" => message, "level" => level}
+	def self.log(message, tags=nil)
+		tags ||= 'notset'
+		log = {"message" => message, "tags" => tags}
 		
 		log
 	end
