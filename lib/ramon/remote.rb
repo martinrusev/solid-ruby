@@ -8,9 +8,9 @@ class Remote
 	def self.post(type, data)
 
 		if type == 'log'
-			@url = '/api/log/#{Config::app_key}'
+			@url = "/api/log/#{Config::app_key}"
 		else
-			@url = '/api/exception/#{Config::app_key}'
+			@url = "/api/exception/#{Config::app_key}"
 		end
 
 		request = Net::HTTP::Post.new(@url, initheader = {'Content-Type' =>'application/json'})
