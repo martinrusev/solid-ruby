@@ -34,7 +34,6 @@ module Ramon
             @app_key                  = ''
             @secret                   = ''
             @framework                = 'Standalone'
-            @logger                   = Logger.new(STDERR) 
         end
 
 

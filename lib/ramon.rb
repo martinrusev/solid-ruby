@@ -1,20 +1,20 @@
 def require_local(file)
-    require File.join(File.dirname(__FILE__), 'ramon', file)
+    require File.join(File.dirname(__FILE__), "ramon", file)
 end
 
-require_local "version"
-require_local "sender"
-require_local "configuration"
-require_local "catcher"
+require_local  "version"
+require_local  "sender"
+require_local  "configuration"
+require_local  "catcher"
 require_local  "exception_data"
 require_local  "controller_exception_data"
 require_local  "enviroment_data"
 
-require_local 'integration/rails' if defined?(Rails)
-require_local 'railtie' if defined?(Rails)
+require_local  "integration/rails" if defined?(Rails)
+require_local  "railtie" if defined?(Rails)
 
 module Ramon
-    
+
     class << self
 
         # The sender object is responsible for delivering formatted data to the Amon server.
@@ -51,8 +51,8 @@ module Ramon
         end
 
         def format_log(message, tags=nil)
-		    tags ||= 'notset'
-		    log = {"message" => message, "tags" => tags}
+            tags ||= 'notset'
+            log = {"message" => message, "tags" => tags}
             log 
         end
 

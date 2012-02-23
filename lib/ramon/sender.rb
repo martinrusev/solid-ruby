@@ -21,7 +21,7 @@ module Ramon
             :secret
 
         def log(level, message)
-            logger.send level, '** RAMON '+ message
+            logger.send level, '** Amon '+ message
 		end
 
 
