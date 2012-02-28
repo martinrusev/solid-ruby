@@ -49,7 +49,7 @@ module Ramon
                 response = Net::HTTP.new(url.host, url.port).start {|http| http.request(request) }
                 case response
                 when Net::HTTPSuccess
-                    log :error, "#{@url} - #{response.message}"
+                    log :info, "#{@url} - #{response.message}"
                     return response
                 else
                     log :error, "#{@url} - #{response.code} - #{response.message}"
