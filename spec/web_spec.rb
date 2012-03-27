@@ -1,14 +1,15 @@
 require 'spec_helper'
+require "logger"
 
 module Ramon
     # Works only when the Amon application is started
-    describe 'Web app test' do
+    describe 'Web app http test' do
 
         it 'Test logging' do
 
             Ramon.configure do |config|
-                config.host  = 'http://127.0.0.1'
-                config.port  = 2464
+                config.address  = 'http://127.0.0.1:2464'
+                config.logger = Logger.new(STDOUT)
             end
             
             Ramon.log([1,2,3,4]).response.code.should == "200"

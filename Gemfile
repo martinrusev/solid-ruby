@@ -4,3 +4,6 @@ source "http://rubygems.org"
 gemspec
 
 gem 'rails', :group => :test 
+
+
+gem 'ramon', :path => '~/ramon'

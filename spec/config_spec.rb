@@ -5,8 +5,8 @@ describe Configuration do
 
  it "should provide default values" do
     config = Ramon::Configuration.new
-    config.port.should == 2464
-    config.host.should == 'http://127.0.0.1'
+    config.address.should == 'http://127.0.0.1:2464'
+    config.protocol.should == 'http'
   end
 
 end

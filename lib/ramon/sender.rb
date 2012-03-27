@@ -1,12 +1,16 @@
 require 'net/http'
 require 'json'
 require 'zlib'
+begin
+  require 'zmq'
+rescue LoadError
+end
 
 module Ramon
     class Sender
         def initialize(options = {})
-            [ :host, 
-                :port, 
+            [ :address, 
+                :protocol,
                 :app_key,
                 :secret
             ].each do |option|
@@ -14,9 +18,8 @@ module Ramon
             end
         end
 
-
-        attr_reader :host,
-            :port,
+        attr_reader :address, 
+            :protocol,
             :app_key,
             :secret
 
@@ -31,11 +34,11 @@ module Ramon
 
 
         def url
-            URI.parse("#{host}:#{port}/api/")
+            URI.parse("#{address}/api/")
         end
 
-        def post(type, data)
-
+        def post_http(type, data)
+            
             if type == 'log'
                 @url = "#{url}log/#{app_key}"
             else
@@ -43,7 +46,7 @@ module Ramon
             end
 
             request = Net::HTTP::Post.new(@url, initheader = {'Content-Type' =>'application/json'})
-            request.body = data.to_json
+            request.body = data
 
             begin
                 response = Net::HTTP.new(url.host, url.port).start {|http| http.request(request) }
@@ -58,7 +61,27 @@ module Ramon
                 log :error, "[Ramon::Sender#post] Cannot send data to #{@url} Error: #{e.class} - #{e.message}"
                 nil 
             end
+        end
 
+        def post_zeromq(type, data)
+            if defined?(ZMQ)
+                context = ZMQ::Context.new()
+                socket = context.socket(ZMQ::DEALER) 
+                socket.connect("tcp://#{address}")
+                socket.send(data)
+                socket.close()
+                true
+            end
+        end
+
+        def post(type, data)
+            data = data.to_json
+            
+            if protocol == 'zeromq'
+                post_zeromq(type, data)
+            elsif protocol == 'http'
+                post_http(type, data)
+            end
         end
 
     end # Class end 
