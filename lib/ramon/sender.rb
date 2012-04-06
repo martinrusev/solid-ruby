@@ -37,7 +37,7 @@ module Ramon
             URI.parse("#{address}/api/")
         end
 
-        def post_http(type, data)
+        def post_http(type, data = {})
             
             if type == 'log'
                 @url = "#{url}log/#{app_key}"
@@ -46,7 +46,7 @@ module Ramon
             end
 
             request = Net::HTTP::Post.new(@url, initheader = {'Content-Type' =>'application/json'})
-            request.body = data
+            request.body = data.to_json
 
             begin
                 response = Net::HTTP.new(url.host, url.port).start {|http| http.request(request) }
@@ -63,20 +63,26 @@ module Ramon
             end
         end
 
-        def post_zeromq(type, data)
+        def post_zeromq(type, data = {})
             if defined?(ZMQ)
                 context = ZMQ::Context.new()
                 socket = context.socket(ZMQ::DEALER) 
                 socket.connect("tcp://#{address}")
-                socket.send(data)
+                json_data = {:type => type,
+                            :content =>  data}
+                if app_key
+                    json_data['app_key'] = app_key
+                end
+
+                json_data = json_data.to_json
+
+                socket.send(json_data, ZMQ::NOBLOCK)
                 socket.close()
                 true
             end
         end
 
         def post(type, data)
-            data = data.to_json
-            
             if protocol == 'zeromq'
                 post_zeromq(type, data)
             elsif protocol == 'http'
