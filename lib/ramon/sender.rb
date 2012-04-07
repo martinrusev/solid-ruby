@@ -68,6 +68,7 @@ module Ramon
                 context = ZMQ::Context.new()
                 socket = context.socket(ZMQ::DEALER) 
                 socket.connect("tcp://#{address}")
+                socket.setsockopt(ZMQ::LINGER,0) 
                 json_data = {:type => type,
                             :content =>  data}
                 if app_key
@@ -78,6 +79,7 @@ module Ramon
 
                 socket.send(json_data, ZMQ::NOBLOCK)
                 socket.close()
+                context.close()
                 true
             end
         end
