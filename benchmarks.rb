@@ -8,7 +8,7 @@ Ramon.configure do |config|
 end
 
 start_time = Time.now
-(1..1000).each { 
+(1..10000).each { 
     Ramon.log('test')
 }
 end_time = Time.now
@@ -22,7 +22,7 @@ Ramon.configure do |config|
 end
 
 start_time = Time.now
-(1..1000).each { 
+(1..10000).each { 
     Ramon.log('test')
 }
 end_time = Time.now
@@ -31,7 +31,7 @@ puts "ZeroMQ logging #{(end_time - start_time)} seconds"
 
 log = Logger.new('bench.log') 
 start_time = Time.now
-(1..1000).each { 
+(1..10000).each { 
     log.info('test')
 }
 end_time = Time.now
