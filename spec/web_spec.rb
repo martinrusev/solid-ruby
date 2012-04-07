@@ -8,7 +8,7 @@ module Ramon
         it 'Test logging' do
 
             Ramon.configure do |config|
-                config.address  = 'http://127.0.0.1:2464'
+                config.address  = 'http://127.0.0.1:2465'
                 config.logger = Logger.new(STDOUT)
             end
             
