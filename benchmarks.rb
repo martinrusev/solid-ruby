@@ -4,12 +4,13 @@ require "logger"
 
 runs = 10000
 http_address = 'http://127.0.0.1:2464'
-http_bench = True
-zeromq_bench = True
-standart_bench = True
+http_bench = true
+zeromq_bench = true
+standart_bench = true
 
+puts "Runs: #{runs}"
 
-if http_bench == True
+if http_bench == true
     Ramon.configure do |config|
         config.address  = http_address
         config.logger = Logger.new("/dev/null")
@@ -24,7 +25,7 @@ if http_bench == True
 end
 
 
-if zeromq_bench == True
+if zeromq_bench == true
     Ramon.configure do |config|
         config.address  = '127.0.0.1:5464'
         config.protocol = 'zeromq'
@@ -40,7 +41,7 @@ if zeromq_bench == True
 end
 
 
-if standart_bench == True
+if standart_bench == true
     log = Logger.new('bench.log') 
     start_time = Time.now
     (1..runs).each { 
