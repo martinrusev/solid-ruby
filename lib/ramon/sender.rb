@@ -73,7 +73,7 @@ module Ramon
 
                 json_data = json_data.to_json
 
-                puts 'test'
+                ZeroMQ.address = address
                 ZeroMQ.instance.post(json_data)
                 true
             else

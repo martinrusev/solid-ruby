@@ -4,7 +4,7 @@ require "logger"
 require 'singleton'
 require "zmq"
 
-runs = 5000
+runs = 10000
 http_address = 'http://127.0.0.1:2464'
 http_bench = false
 zeromq_bench = true
@@ -32,13 +32,18 @@ if zeromq_bench == true
 class ZeroMQ
   include Singleton
    
+  @@address = ""
+  def self.address= address
+    @@address = address
+  end
+
   def initialize
     @context = ZMQ::Context.new(1)
     @socket = @context.socket(ZMQ::DEALER) 
-    @socket.connect("tcp://127.0.0.1:5464")
+    @socket.connect("tcp://#{@@address}")
     @socket.setsockopt(ZMQ::LINGER, 0) 
   end
- 
+
   def post(data)
     @socket.send(data, ZMQ::NOBLOCK)
   end
@@ -55,6 +60,7 @@ end
     (1..runs).each { 
         json_data = {:type => 'log', :content =>  {:message => 'zeromq test'}}
         json_data = json_data.to_json
+        ZeroMQ.address = '127.0.0.1:5464'
         ZeroMQ.instance.post(json_data)
     }
     end_time = Time.now
