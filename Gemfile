@@ -5,5 +5,4 @@ gemspec
 
 gem 'rails', :group => :test 
 
-
 gem 'ramon', :path => '~/ramon'

@@ -65,10 +65,6 @@ module Ramon
 
         def post_zeromq(type, data = {})
             if defined?(ZMQ)
-                context = ZMQ::Context.new()
-                socket = context.socket(ZMQ::DEALER) 
-                socket.connect("tcp://#{address}")
-                socket.setsockopt(ZMQ::LINGER,0) 
                 json_data = {:type => type,
                             :content =>  data}
                 if app_key
@@ -77,10 +73,11 @@ module Ramon
 
                 json_data = json_data.to_json
 
-                socket.send(json_data, ZMQ::NOBLOCK)
-                socket.close()
-                context.close()
+                puts 'test'
+                ZeroMQ.instance.post(json_data)
                 true
+            else
+                puts "ZeroMQ is not installed"
             end
         end
 

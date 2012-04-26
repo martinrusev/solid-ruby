@@ -12,6 +12,7 @@ require_local  "enviroment_data"
 
 require_local  "integration/rails" if defined?(Rails)
 require_local  "railtie" if defined?(Rails)
+require_local  "zeromq" if defined?(ZMQ)
 
 module Ramon
 
