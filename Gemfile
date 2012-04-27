@@ -4,5 +4,5 @@ source "http://rubygems.org"
 gemspec
 
 gem 'rails', :group => :test 
-
+gem 'zmq'
 gem 'ramon', :path => '~/ramon'

@@ -1,4 +1,5 @@
 require "rubygems"
+require "bundler/setup"
 require "ramon"
 require "logger"
 require 'singleton'
@@ -42,6 +43,7 @@ class ZeroMQ
     @socket = @context.socket(ZMQ::DEALER) 
     @socket.connect("tcp://#{@@address}")
     @socket.setsockopt(ZMQ::LINGER, 0) 
+    @socket.setsockopt(ZMQ::SWAP, 25000000) # 25MB disk swap
   end
 
   def post(data)
@@ -50,21 +52,30 @@ class ZeroMQ
 
 end
 
-    #Ramon.configure do |config|
-        #config.address  = '127.0.0.1:5464'
-        #config.protocol = 'zeromq'
-        #config.logger = Logger.new(STDOUT)
-    #end
+    #start_time = Time.now
+    #(1..runs).each { 
+        #json_data = {:type => 'log', :content =>  {:message => 'zeromq test'}}
+        #json_data = json_data.to_json
+        #ZeroMQ.address = '127.0.0.1:5464'
+        #ZeroMQ.instance.post(json_data)
+    #}
+    #end_time = Time.now
+    #puts "ZeroMQ logging #{(end_time - start_time)} seconds"
 
+    Ramon.configure do |config|
+        config.address  = '127.0.0.1:5464'
+        config.protocol = 'zeromq'
+        config.logger = Logger.new(STDOUT)
+    end
+    
     start_time = Time.now
     (1..runs).each { 
-        json_data = {:type => 'log', :content =>  {:message => 'zeromq test'}}
-        json_data = json_data.to_json
-        ZeroMQ.address = '127.0.0.1:5464'
-        ZeroMQ.instance.post(json_data)
+        Ramon.log('ramon zeromq test')
     }
     end_time = Time.now
-    puts "ZeroMQ logging #{(end_time - start_time)} seconds"
+    puts "Ramon ZeroMQ logging #{(end_time - start_time)} seconds"
+
+
 end
 
 

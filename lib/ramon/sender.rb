@@ -1,10 +1,6 @@
 require 'net/http'
 require 'json'
 require 'zlib'
-begin
-  require 'zmq'
-rescue LoadError
-end
 
 module Ramon
     class Sender
@@ -65,8 +61,7 @@ module Ramon
 
         def post_zeromq(type, data = {})
             if defined?(ZMQ)
-                json_data = {:type => type,
-                            :content =>  data}
+                json_data = {:type => type, :content =>  data}
                 if app_key
                     json_data['app_key'] = app_key
                 end
@@ -75,9 +70,8 @@ module Ramon
 
                 ZeroMQ.address = address
                 ZeroMQ.instance.post(json_data)
-                true
             else
-                puts "ZeroMQ is not installed"
+                puts "ZeroMQ is not installed. You can install it with `gem install zmq`"
             end
         end
 
