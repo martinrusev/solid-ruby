@@ -7,8 +7,7 @@ module Ramon
         def initialize(options = {})
             [ :address, 
                 :protocol,
-                :app_key,
-                :secret
+                :secret_key
             ].each do |option|
                 instance_variable_set("@#{option}", options[option])
             end
@@ -16,8 +15,7 @@ module Ramon
 
         attr_reader :address, 
             :protocol,
-            :app_key,
-            :secret
+            :secret_key
 
         def log(level, message)
             logger.send level, '** Amon '+ message
@@ -36,9 +34,9 @@ module Ramon
         def post_http(type, data = {})
             
             if type == 'log'
-                @url = "#{url}log/#{app_key}"
+                @url = "#{url}log/#{secret_key}"
             else
-                @url = "#{url}exception/#{app_key}"
+                @url = "#{url}exception/#{secret_key}"
             end
 
             request = Net::HTTP::Post.new(@url, initheader = {'Content-Type' =>'application/json'})
@@ -62,8 +60,8 @@ module Ramon
         def post_zeromq(type, data = {})
             if defined?(ZMQ)
                 json_data = {:type => type, :content =>  data}
-                if app_key
-                    json_data['app_key'] = app_key
+                if secret_key
+                    json_data['app_key'] = secret_key
                 end
 
                 json_data = json_data.to_json
