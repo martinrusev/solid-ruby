@@ -5,10 +5,10 @@ require "logger"
 require 'singleton'
 require "zmq"
 
-runs = 10000
-http_address = 'http://127.0.0.1:2464'
-http_bench = false
-zeromq_bench = true
+runs = 100
+http_address = "http://127.0.0.1:2465"
+http_bench = true
+zeromq_bench = false
 standart_bench = true
 
 puts "Runs: #{runs}"
@@ -16,7 +16,8 @@ puts "Runs: #{runs}"
 if http_bench == true
     Ramon.configure do |config|
         config.address  = http_address
-        config.logger = Logger.new("/dev/null")
+        config.secret_key = "u6ljlx2glnf8xq45ut1etkpxghmjpe3e"
+        config.logger = Logger.new(STDOUT)
     end
 
     start_time = Time.now

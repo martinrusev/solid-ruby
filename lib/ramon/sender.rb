@@ -13,12 +13,10 @@ module Ramon
             end
         end
 
-        attr_reader :address, 
-            :protocol,
-            :secret_key
+        attr_reader :address, :protocol, :secret_key
 
         def log(level, message)
-            logger.send level, '** Amon '+ message
+            logger.send level, ''+ message
 		end
 
 
@@ -44,6 +42,7 @@ module Ramon
 
             begin
                 response = Net::HTTP.new(url.host, url.port).start {|http| http.request(request) }
+                puts response
                 case response
                 when Net::HTTPSuccess
                     log :info, "#{@url} - #{response.message}"
@@ -60,8 +59,9 @@ module Ramon
         def post_zeromq(type, data = {})
             if defined?(ZMQ)
                 json_data = {:type => type, :content =>  data}
+                
                 if secret_key
-                    json_data['app_key'] = secret_key
+                    json_data['secret_key'] = secret_key
                 end
 
                 json_data = json_data.to_json

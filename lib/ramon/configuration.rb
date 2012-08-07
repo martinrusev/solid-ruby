@@ -1,14 +1,11 @@
 module Ramon
     class Configuration
         class ConfigurationException < StandardError; end
-        OPTIONS = [:app_key, :address, :secret, :protocol,
+        OPTIONS = [:secret_key, :address, :secret, :protocol,
             :environment_name, :framework, :project_root].freeze
 
-        # The Aplication key. Only in Amon Plus.
-        attr_accessor :app_key
-
-        # Secret key, used for securely logging in the normal Amon version
-        attr_accessor :secret
+        # Secret key, used for securely logging 
+        attr_accessor :secret_key
 
         # The host to connect to (defaults to 127.0.0.1).
         attr_accessor :address
@@ -32,9 +29,8 @@ module Ramon
         attr_accessor :protocol
         
         def initialize
-            @address                    = 'http://127.0.0.1:2464'
-            @app_key                  = ''
-            @secret                   = ''
+            @address                  = 'http://127.0.0.1:2464'
+            @secret_key               = ''
             @framework                = 'Standalone'
             @protocol                 = 'http'
         end
