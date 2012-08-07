@@ -5,13 +5,16 @@ require "logger"
 require 'singleton'
 require "zmq"
 
+require 'net/http'
+
 runs = 100
 http_address = "http://127.0.0.1:2465"
 http_bench = true
 zeromq_bench = false
-standart_bench = true
+standart_bench = false
 
 puts "Runs: #{runs}"
+
 
 if http_bench == true
     Ramon.configure do |config|

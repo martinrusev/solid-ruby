@@ -42,7 +42,7 @@ module Ramon
 
             begin
                 response = Net::HTTP.new(url.host, url.port).start {|http| http.request(request) }
-                puts response
+                
                 case response
                 when Net::HTTPSuccess
                     log :info, "#{@url} - #{response.message}"
