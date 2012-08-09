@@ -6,15 +6,27 @@ require 'singleton'
 require "zmq"
 
 require 'net/http'
+require 'json'
 
-runs = 100
+runs = 10
 http_address = "http://127.0.0.1:2465"
+key = "u6ljlx2glnf8xq45ut1etkpxghmjpe3e"
+
 http_bench = true
 zeromq_bench = false
 standart_bench = false
 
 puts "Runs: #{runs}"
 
+#@post_path = "/api/log/#{key}"
+#@url = URI.parse(http_address)
+#@data = {"message" => 'ruby test' , "tags" => ['ruby']}.to_json
+ 
+
+#req = Net::HTTP::Post.new(@post_path, initheader = {'Content-Type' =>'application/json'})
+#req.body = @data
+#response = Net::HTTP.new(@url.host, @url.port).start {|http| http.request(req) }
+#puts "Response #{response.code} #{response.message}: #{response.body}"
 
 if http_bench == true
     Ramon.configure do |config|
@@ -25,7 +37,7 @@ if http_bench == true
 
     start_time = Time.now
     (1..runs).each { 
-        Ramon.log('test')
+        Ramon.log('ruby test')
     }
     end_time = Time.now
     puts "HTTP logging #{(end_time - start_time)} seconds"

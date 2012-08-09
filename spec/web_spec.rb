@@ -9,6 +9,7 @@ module Ramon
 
             Ramon.configure do |config|
                 config.address  = 'http://127.0.0.1:2465'
+                config.secret_key = "u6ljlx2glnf8xq45ut1etkpxghmjpe3e"
                 config.logger = Logger.new(STDOUT)
             end
             

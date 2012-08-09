@@ -26,18 +26,18 @@ module Ramon
 
 
         def url
-            URI.parse("#{address}/api/")
+            URI.parse("#{address}")
         end
 
         def post_http(type, data = {})
             
             if type == 'log'
-                @url = "#{url}log/#{secret_key}"
+                @path = "/api/log/#{secret_key}"
             else
-                @url = "#{url}exception/#{secret_key}"
+                @path = "/api/exception/#{secret_key}"
             end
 
-            request = Net::HTTP::Post.new(@url, initheader = {'Content-Type' =>'application/json'})
+            request = Net::HTTP::Post.new(@path, initheader = {'Content-Type' =>'application/json'})
             request.body = data.to_json
 
             begin
@@ -45,13 +45,13 @@ module Ramon
                 
                 case response
                 when Net::HTTPSuccess
-                    log :info, "#{@url} - #{response.message}"
+                    log :info, "#{url}#{@path} - #{response.message}"
                     return response
                 else
-                    log :error, "#{@url} - #{response.code} - #{response.message}"
+                    log :error, "#{url}#{@path} - #{response.code} - #{response.message}"
                 end
             rescue Exception => e
-                log :error, "[Ramon::Sender#post] Cannot send data to #{@url} Error: #{e.class} - #{e.message}"
+                log :error, "[Ramon::Sender#post] Cannot send data to #{url}#{@path} Error: #{e.class} - #{e.message}"
                 nil 
             end
         end
